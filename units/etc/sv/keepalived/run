@@ -23,12 +23,6 @@ config_keepalived() {
   KEEPALIVED_AUTH_PASS=${KEEPALIVED_AUTH_PASS:-"pwd$KEEPALIVED_VIRTUAL_ROUTER_ID"}
 
   {
-    echo "global_defs {"
-    echo "router_id LVS_MAIN"
-    echo "}"
-  } > "$KEEPALIVED_CONF"
-
-  {
     echo "vrrp_instance MAIN {"
     echo "  state $KEEPALIVED_STATE"
     echo "  interface $KEEPALIVED_INTERFACE"
@@ -60,7 +54,7 @@ config_keepalived() {
       echo "}"
     } >> "$KEEPALIVED_CONF"
   fi
-
+  echo "}" >> "$KEEPALIVED_CONF"
   return 0
 }
 
