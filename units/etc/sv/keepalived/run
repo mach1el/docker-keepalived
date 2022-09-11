@@ -29,6 +29,16 @@ config_keepalived() {
     echo "  virtual_router_id $KEEPALIVED_VIRTUAL_ROUTER_ID"
     echo "  priority $KEEPALIVED_PRIORITY"
     echo "  advert_int $KEEPALIVED_ADVERT_INT"
+    echo "  unicast_src_ip $KEEPALIVED_UNICAST_SRC_IP"
+    echo '  unicast_peer {'
+  } >> "$KEEPALIVED_CONF"
+  
+  for peer in $(compgen -A variable | grep -E "KEEPALIVED_UNICAST_PEER_[0-9]{1,3}"); do
+    echo "    ${!peer}" >> "$KEEPALIVED_CONF"
+  done
+  
+  {
+    echo '  }'
     echo "  authentication {"
     echo "    auth_type PASS"
     echo "    auth_pass $KEEPALIVED_AUTH_PASS"
