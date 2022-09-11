@@ -8,6 +8,8 @@ LABEL architecture="x86_64"                       \
       vcs-type="git"                              \
       vcs-url="https://github.com/mach1el/docker-keepalived"
 
+RUN useradd -g users -M keepalived_script
+
 RUN apt update &&  \
     apt install -y \
     bash           \
