@@ -18,7 +18,7 @@ net.ipv4.ip_nonlocal_bind = 1
 docker run -tid \
 --net=host \
 --name=keepalived \
---restar=alawys \
+--restart=always \
 --cap-add NET_ADMIN \
 -e KEEPALIVED_AUTOCONF=true \
 -e KEEPALIVED_STATE=MASTER \
@@ -35,7 +35,7 @@ mich43l/keepalived
 docker run -tid \
 --net=host \
 --name=keepalived \
---restar=alawys \
+--restart=always \
 --cap-add NET_ADMIN \
 -e KEEPALIVED_AUTOCONF=true \
 -e KEEPALIVED_STATE=BACKUP \
