@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM alpine:latest
 
 LABEL architecture="x86_64"                       \
       build-date="$BUILD_DATE"                    \
@@ -8,22 +8,21 @@ LABEL architecture="x86_64"                       \
       vcs-type="git"                              \
       vcs-url="https://github.com/mach1el/docker-keepalived"
 
-RUN useradd -g users -M keepalived_script
-
-RUN apt update &&  \
-    apt install -y \
+RUN apk add --no-cache \
     bash           \
     curl           \
     ipvsadm        \
     iproute2       \
     net-tools      \
-    netcat         \
+    netcat-openbsd \
     dirmngr        \
     runit          \
     procps         \
     parallel       \
     keepalived     \
     && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /etc/keepalived
 
 ADD units /
 RUN ln -s /etc/sv/* /etc/service
